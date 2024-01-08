@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성하기</title>
+</head>
+<body>
+<h1>게시글 작성하기</h1>
+<form th:action="@{'/boards/article-create'}" method="post">
+    <div>
+        <label>
+            제목: <input type="text" name="title" placeholder="제목을 입력하세요">
+        </label>
+    </div>
+    <div>
+        <label>
+            내용 : <input type="text" name="content" placeholder="내용을 입력하세요">
+        </label>
+    </div>
+    <div>
+        <label>
+            비밀번호 : <input type="text" name="password" placeholder="비밀번호을 입력하세요">
+        </label>
+    </div>
+    <div>
+        <label>
+            게시판 선택 :
+            <select>
+                <option name="boardId"
+                        th:each="board: ${AllBoards}"
+                        th:value="${board.board_name}"
+                >
+                </option>
+            </select>
+        </label>
+    </div>
+
+    <button type="submit">글 생성</button>
+</form>
+</body>
+</html>

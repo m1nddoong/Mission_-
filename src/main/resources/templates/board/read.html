@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 보기</title>
+</head>
+<body>
+<h1 th:text="${board.board_name}">게시판</h1>
+<hr>
+<div th:each="article : ${articles}">
+    <p><a th:href="@{/article/{id}(id=${article.id})}" th:text="${article.title}"></a></p>
+</div>
+</body>
+</html>
