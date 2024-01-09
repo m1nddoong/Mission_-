@@ -17,6 +17,15 @@
       내용 : <input type="text" name="content" th:value="${article.content}">
     </label>
   </div>
+  <div>
+    <label>
+      비밀번호 : <input type="text" name="password">
+    </label>
+  </div>
+  <!-- 수정 폼에서 에러 메시지를 표시하는 부분 -->
+  <div th:if="${param.error}">
+    <p style="color: red;">비밀번호가 일치하지 않습니다.</p>
+  </div>
   <input type="submit" value="저장">
 </form>
 </body>

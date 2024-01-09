@@ -64,13 +64,17 @@ public class ArticleService {
     public void updateArticle(
             Long id,
             String title,
-            String content
+            String content,
+            Long password
     ) {
         ArticleEntity article = readOneArticle(id);
-        article.setTitle(title);
-        article.setContent(content);
-        articleRepository.save(article);
+        if (article.getPassword().equals(password)) { // DB의 비밀번호와 폼으로 부터 얻은 비밀번호가 일치
+            article.setTitle(title);
+            article.setContent(content);
+            articleRepository.save(article);
+        } else {
+            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+        }
     }
-
 }
 
