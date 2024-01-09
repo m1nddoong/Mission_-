@@ -75,4 +75,6 @@ public class ArticleController {
             return "redirect:/article/" + id + "?error=password";
         }
     }
+
+
 }

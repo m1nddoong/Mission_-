@@ -17,9 +17,5 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
-
-    // 작성자의 비밀번호도 있어야 한다.
-    @ManyToOne
-    @JoinColumn(name = "article_password")
-    private ArticleEntity article;
+    private Long password;
 }
