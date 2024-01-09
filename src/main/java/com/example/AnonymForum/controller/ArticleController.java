@@ -60,4 +60,19 @@ public class ArticleController {
         }
 
     }
+
+    @PostMapping("{articleId}")
+    public String deleteArticle(
+            @PathVariable("articleId")
+            Long id,
+            @RequestParam("password")
+            Long password
+    ) {
+        try {
+            articleService.deleteArticle(id, password);
+            return "redirect:/boards";
+        } catch (RuntimeException e) {
+            return "redirect:/article/" + id + "?error=password";
+        }
+    }
 }

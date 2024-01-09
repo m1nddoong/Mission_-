@@ -61,6 +61,7 @@ public class ArticleService {
     }
 
 
+    // 수정하기
     public void updateArticle(
             Long id,
             String title,
@@ -72,6 +73,16 @@ public class ArticleService {
             article.setTitle(title);
             article.setContent(content);
             articleRepository.save(article);
+        } else {
+            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+        }
+    }
+
+    // 삭제하기
+    public void deleteArticle(Long id, Long password) {
+        ArticleEntity article = readOneArticle(id);
+        if (article.getPassword().equals(password)) {
+            articleRepository.deleteById(id);
         } else {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
