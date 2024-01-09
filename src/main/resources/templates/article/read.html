@@ -5,21 +5,29 @@
     <title>게시글 보기</title>
 </head>
 <body>
-<h2 th:text="${article.get().title}"></h2>
+<h2 th:text="${article.title}"></h2>
 <label>
-    내용 :  <p th:text="${article.get().content}"></p>
+    내용 : <p th:text="${article.content}"></p>
 </label>
+<a th:href="@{/article/{id}/update-view(id=${article.id})}">수정하기</a>
+<br>
+<hr>
+<div>
+    댓글 목록 :
+</div>
+
 
 <hr>
 <div>
     <form action="">
         <label>
-            댓글 : <input type="text" name="comment" placeholder="댓글을 입력하세요.">
+            비밀번호 입력 : <input type="text" name="password" placeholder="비밀번호를 입력하세요.">
         </label>
         <label>
-            비밀번호 : <input type="text" name="password" placeholder="비밀번호를 입력하세요.">
+            댓글 쓰기 : <input type="text" name="comment" placeholder="댓글을 입력하세요.">
         </label>
     </form>
 </div>
+
 </body>
 </html>

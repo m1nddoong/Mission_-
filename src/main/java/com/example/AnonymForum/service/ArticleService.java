@@ -47,8 +47,10 @@ public class ArticleService {
     }
 
     // articleId 로 article
-    public Optional<ArticleEntity> readOneArticle(Long id) {
-        return articleRepository.findById(id);
+    public ArticleEntity readOneArticle(Long id) {
+        // Optional<ArticleEntity> optionalArticleEntity = articleRepository.findById(id);
+        // return optionalArticleEntity.orElse(null);
+        return articleRepository.findById(id).orElse(null);
     }
 
 
@@ -57,4 +59,18 @@ public class ArticleService {
         Collections.sort(articles);
         return articles;
     }
+
+
+    public void updateArticle(
+            Long id,
+            String title,
+            String content
+    ) {
+        ArticleEntity article = readOneArticle(id);
+        article.setTitle(title);
+        article.setContent(content);
+        articleRepository.save(article);
+    }
+
 }
+

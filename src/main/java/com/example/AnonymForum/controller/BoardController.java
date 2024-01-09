@@ -57,7 +57,7 @@ public class BoardController {
 
 
     // 몇번(id) 게시판에, 게시글 작성화면 보기
-    @GetMapping("/article-create")
+    @GetMapping("/create-view")
     public String create(Model model) {
         List<BoardEntitiy> boardEntitiyList = boardService.readAllBoards();
         model.addAttribute("AllBoards", boardEntitiyList);
@@ -66,7 +66,7 @@ public class BoardController {
     }
 
     // 몇번(id) 게시판에, 게시글 작성하고 전송
-    @PostMapping("/article-create")
+    @PostMapping("/create-view")
     public String create(
             @RequestParam("title")
             String title,

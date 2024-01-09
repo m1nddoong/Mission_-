@@ -9,6 +9,6 @@
 <div th:each="board: ${AllBoards}">
     <p>[[${board.id}]]. <a th:href="@{/boards/{id}(id=${board.id})}">[[${board.board_name}]]</a></p>
 </div>
-    <a href="/boards/article-create">게시글 작성</a>
+    <a href="/boards/create-view">게시글 작성</a>
 </body>
 </html>
