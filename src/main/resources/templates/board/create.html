@@ -25,16 +25,11 @@
     <div>
         <label>
             게시판 선택 :
-            <select>
-                <option name="boardId"
-                        th:each="board: ${AllBoards}"
-                        th:value="${board.board_name}"
-                >
-                </option>
+            <select name="boardId">
+                <option th:each="board: ${AllBoards}" th:value="${board.id}" th:text="${board.board_name}"></option>
             </select>
         </label>
     </div>
-
     <button type="submit">글 생성</button>
 </form>
 </body>

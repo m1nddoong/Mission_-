@@ -35,15 +35,25 @@ public class BoardController {
     // boardId = 2 에 해당하는 게시글을 보여주면 된다.
     @GetMapping("/{boardId}")
     public String readOneBoard(@PathVariable("boardId") Long boardId, Model model) {
-        // List<ArticleEntity> articles = articleService.readArticles(boardId);
-        model.addAttribute("articles", articleService.readArticles(boardId));
+        List<ArticleEntity> articles;
+
+        if (boardId.equals(1L)) {
+            // 전체 게시판인 경우 모든 게시물 가져오기
+            articles = articleService.readAllArticles();
+        } else {
+            // 특정 게시판인 경우 해당 게시판의 게시물 가져오기
+            articles = articleService.readArticles(boardId);
+        }
+        // id 를 기준으로 내림차순
+        model.addAttribute("articles", articleService.ArticleSortById(articles));
 
         // 게시판 정보 가져오기
         Optional<BoardEntitiy> optionalBoardEntity = boardService.readBoardById(boardId);
-        optionalBoardEntity.ifPresent(boardEntitiy -> model.addAttribute("board", boardEntitiy));
+        optionalBoardEntity.ifPresent(boardEntity -> model.addAttribute("board", boardEntity));
 
         return "board/read";
     }
+
 
 
     // 몇번(id) 게시판에, 게시글 작성화면 보기
@@ -64,10 +74,10 @@ public class BoardController {
             String content,
             @RequestParam("password")
             Long password,
-            @RequestParam("board_id")
-            Long board_id
+            @RequestParam("boardId")
+            Long boardId
     ) {
-        articleService.createArticle(title, content, password, board_id);
+        articleService.createArticle(title, content, password, boardId);
         return "redirect:/boards";
     }
 }

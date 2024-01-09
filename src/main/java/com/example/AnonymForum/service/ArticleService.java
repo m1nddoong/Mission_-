@@ -4,6 +4,7 @@ import com.example.AnonymForum.entity.ArticleEntity;
 import com.example.AnonymForum.entity.BoardEntitiy;
 import com.example.AnonymForum.repository.ArticleRepository;
 import com.example.AnonymForum.repository.BoardRepository;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -28,17 +29,21 @@ public class ArticleService {
         article.setPassword(password);
 
         // 게시판을 찾는다.
-        Optional<BoardEntitiy> optionalBoardEntitiy
-                = boardRepository.findById(boardId);
+        Optional<BoardEntitiy> optionalBoardEntity = boardRepository.findById(boardId);
+        optionalBoardEntity.ifPresent(article::setBoard);
 
-        article.setBoard(optionalBoardEntitiy.orElse(null));
 
         articleRepository.save(article);
     }
 
+    // 어떤 특정 boardId 에 해당하는 게시판의 게시물들을 얻어오기
     public List<ArticleEntity> readArticles(Long boardId) {
         return articleRepository.findAllByBoardId(boardId);
-        // return articleRepository.findAllByBoardId(boardId);
+    }
+
+    // 모든 article 을 얻어오기
+    public List<ArticleEntity> readAllArticles() {
+        return articleRepository.findAll();
     }
 
     // articleId 로 article
@@ -46,4 +51,10 @@ public class ArticleService {
         return articleRepository.findById(id);
     }
 
+
+    // article 의 id 를 기준으로 내림차순 정렬하기
+    public List<ArticleEntity> ArticleSortById(List<ArticleEntity> articles) {
+        Collections.sort(articles);
+        return articles;
+    }
 }

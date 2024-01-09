@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="article")
-public class ArticleEntity {
+public class ArticleEntity implements Comparable<ArticleEntity>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,13 @@ public class ArticleEntity {
 
     // 여러개의 article(N) : board(1) 의 관계
     @ManyToOne
+    @JoinColumn(name = "board_id")  // 외래 키(Foreign Key)를 지정합니다.
     private BoardEntitiy board;
 
 
+    @Override
+    public int compareTo(ArticleEntity other) {
+        // id를 기준으로 내림차순 정렬
+        return other.getId().compareTo(this.getId());
+    }
 }
