@@ -30,7 +30,7 @@ public class CommentController {
         return "article/read";
     }
 
-    // 댓글 생성
+    // 댓글 작성
     @PostMapping("/article/{articleId}/comment")
     public String createComment(
             @RequestParam("message")
@@ -43,4 +43,23 @@ public class CommentController {
         commentService.createComment(message, password, articleId);
         return "redirect:/article/{articleId}";
     }
+
+    // 댓글 삭제
+    @PostMapping("/article/{articleId}/comment/{commentId}/delete")
+    public String deleteComment(
+            @PathVariable("articleId")
+            Long articleId,
+            @PathVariable("commentId")
+            Long commentId,
+            @RequestParam("password")
+            Long password
+    ) {
+        try {
+            commentService.deleteComment(articleId, commentId, password);
+            return "redirect:/article/{articleId}";
+        } catch (RuntimeException e) {
+            return "redirect:/article/" + articleId + "?commentError=password";
+        }
+    }
 }
+

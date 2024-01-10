@@ -47,10 +47,10 @@ public class ArticleService {
     }
 
     // articleId 로 article
-    public ArticleEntity readOneArticle(Long id) {
+    public ArticleEntity readOneArticle(Long articleId) {
         // Optional<ArticleEntity> optionalArticleEntity = articleRepository.findById(id);
         // return optionalArticleEntity.orElse(null);
-        return articleRepository.findById(id).orElse(null);
+        return articleRepository.findById(articleId).orElse(null);
     }
 
 

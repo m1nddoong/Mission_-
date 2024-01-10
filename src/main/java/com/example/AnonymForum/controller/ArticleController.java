@@ -79,7 +79,7 @@ public class ArticleController {
             articleService.deleteArticle(id, password);
             return "redirect:/boards";
         } catch (RuntimeException e) {
-            return "redirect:/article/" + id + "?error=password";
+            return "redirect:/article/" + id + "?articleError=password";
         }
     }
 

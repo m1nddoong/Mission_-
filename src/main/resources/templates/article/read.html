@@ -15,10 +15,10 @@
     <a th:href="@{/article/{id}/update-view(id=${article.id})}">수정하기</a>
     <form th:action="@{/article/{id}/delete(id=${article.id})}" method="post">
         <label>
-            <p>삭제하기 : <input type="password" name="password" placeholder="비밀번호를 입력하세요."><input type="submit" value="삭제하기"></p>
+            <p>삭제하기 : <input type="password" name="password" placeholder="비밀번호를 입력하세요."><input type="submit" value="삭제"></p>
             <!-- 수정 폼에서 에러 메시지를 표시하는 부분 -->
         </label>
-        <div th:if="${param.error}">
+        <div th:if="${param.articleError}">
             <p style="color: red;">비밀번호가 일치하지 않습니다.</p>
         </div>
     </form>
@@ -31,7 +31,7 @@
             <p>사용자 PW 입력 : <input type="password" name="password" placeholder="비밀번호를 입력하세요."></p>
         </label>
         <label>
-            <p>댓글 쓰기 : <input type="text" name="message" placeholder="댓글을 입력하세요."><input type="submit" value="댓글 추가하기"></p>
+            <p>댓글 쓰기 : <input type="text" name="message" placeholder="댓글을 입력하세요."><input type="submit" value="추가"></p>
         </label>
     </form>
 </div>
@@ -41,8 +41,18 @@
 <div th:if="${comments}">
     <!-- 특정 게시물의 댓글들 -->
     <div th:each="comment : ${comments}">
-        <p th:text="${comment.message}"></p>
+        <div>
+            <p th:text="${comment.message}"></p>
+            <!-- 댓글 삭제 버튼 -->
+            <form th:action="@{/article/{articleId}/comment/{commentId}/delete(articleId=${article.id}, commentId=${comment.id})}" method="post" style="display: inline;">
+                <input type="password" name="password" placeholder="비밀번호를 입력하세요."><input type="submit" value="삭제">
+            </form>
+        </div>
+    </div>
+    <div th:if="${param.commentError}">
+        <p style="color: red;">비밀번호가 일치하지 않습니다.</p>
     </div>
 </div>
+
 </body>
 </html>
