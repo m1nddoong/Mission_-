@@ -20,20 +20,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CommentController {
     private final CommentService commentService;
 
+    @GetMapping("/article/{articleId}/comment")
+    public String readAllComments(
+            @PathVariable("articleId")
+            Long id,
+            Model model
+    ) {
+        model.addAttribute("comments", commentService.readAllCommentsById(id));
+        return "article/read";
+    }
+
     // 댓글 생성
     @PostMapping("/article/{articleId}/comment")
     public String createComment(
-            @PathVariable("articleId")
-            Long id,
             @RequestParam("message")
             String message,
             @RequestParam("password")
-            Long password
+            Long password,
+            @PathVariable("articleId")
+            Long articleId
     ) {
-        commentService.createComment(id, message, password);
+        commentService.createComment(message, password, articleId);
         return "redirect:/article/{articleId}";
     }
-
-
-
 }

@@ -18,4 +18,8 @@ public class CommentEntity {
     private Long id;
     private String message;
     private Long password;
+
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    private ArticleEntity article;
 }

@@ -2,10 +2,13 @@ package com.example.AnonymForum.controller;
 
 
 import com.example.AnonymForum.entity.ArticleEntity;
+import com.example.AnonymForum.entity.CommentEntity;
 import com.example.AnonymForum.service.ArticleService;
 import com.example.AnonymForum.service.BoardService;
+import com.example.AnonymForum.service.CommentService;
 import java.util.List;
 import java.util.Optional;
+import javax.xml.stream.events.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,14 +25,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final BoardService boardServiceq;
+    private final CommentService commentService;
+
 
     @GetMapping("{articleId}")
     public String readOneArticle(@PathVariable("articleId") Long id, Model model) {
         ArticleEntity articleEntity = articleService.readOneArticle(id);
+        List<CommentEntity> comments = commentService.readAllCommentsById(id);
         model.addAttribute("article", articleEntity);
+        model.addAttribute("comments", comments);
         return "article/read";
     }
+
 
     @GetMapping("/{articleId}/update-view")
     public String updateArticleView(@PathVariable("articleId") Long id, Model model) {
@@ -61,7 +68,7 @@ public class ArticleController {
 
     }
 
-    @PostMapping("{articleId}")
+    @PostMapping("{articleId}/delete")
     public String deleteArticle(
             @PathVariable("articleId")
             Long id,
