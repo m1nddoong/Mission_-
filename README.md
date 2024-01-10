@@ -883,10 +883,31 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
 
 ---
 
-## 진행중 발생한 어려움에 대한 기록
+## 어려웠던 점을 어떻게 해결했는지
 
-
-
+1. 타임리프 문법 헷갈림 이슈
+2. jpa 쿼리 메서드
+   - findById 로는 단일 엔티티 반환만 가능하다. 하지만 하나의 Id 로 여러개의 엔티티 리스트를 얻어오기 위해서
+   - 추가적인 메서드가 필요 -> 근데 그게 쿼리 메서드? 띠용?
+   - 규칙이 있더던데?
+3. Optional 은 아직도 어려워
+   - 메서드 전체를 Optional 로 감싸서 나중에 null 임을 체크하기 vs 혹은 메서드 내부의 객체를 Optional 로 감싸고 실제 값 혹은 null을 반환하기
+     - 메서드 전체를 Optional 로 감싸면 나중에 HTML 에서 th:if 로 isPresent() 에 따라 ${article.get().id} 런식으로 get() 메서드 사용
+   - 만약 내부에서 Optional 을 처리하면 그냥 ${article.id} 접근 가능 (실제 값이든 null 이든 들어가있을 테니까)
+     - 이 방법으로 오류 해결
+   - 게시판을 찾는 부분에서 아래 코드의 문법이 뭔지 모르겠삼,,
+   ![img.png](img.png)
+4. 내림차순 정렬
+   - Comparable 을 상속 받아서 compareTo 메서드 오버라이드 (Comparable 자체가 어려움,, 왤케 생소하지)![img_1.png](img_1.png)
+5. 특정 URL을 처리하는 컨트롤러 메서드 요청 중복?
+   - http://localhost:8080/article/7 에 삭제하기, 댓글 작성, 댓글 보기 등 여러가지 것들을 보여줘야 한다면?
+     - 헤결 : 합칠건 합치고 (GET 메서드), 분리할건 분리하지(POST 메서드)
+6. OneToMany 엔티티 간의 순환 참조로 인해 무한 재귀 호출이 발생
+   - 서로가 서로를 참조하면서 무한 재귀 호출이 발생했던 문제를 `@ToString.Exclude` 애너테이션을 사용하면 해결된다.
+7. 에러메세지 중복 문제 해결
+   - `<div th:if="${param.error}">` 에서 error 부분을 `articleError` 등과 같이 바꿔주고
+   - `return "redirect:/article/" + articleId + "?articleError=password";` 처럼 URL 을 만들어줄떄도
+   error 의 변경사항을 반영? 
 
 ## 프로젝트 실행
 ### git clone
