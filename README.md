@@ -1,19 +1,18 @@
 # [SpringBoot] Project - AnonymForum
 
----
+
 
 
 ## ☀️ 프로젝트 소개
+- 익명 의견 교환 웹 페이지 서비스 🗣️
 
----
 ![img_1.png](img_1.png)
-익명 의견 교환 웹 페이지 서비스
+
 
 
 
 ## 💻 개발 환경
 
----
 - Java : `17`
 - Framework : `Spring Boot 3.2.1`
 - Build : `gradle`
@@ -24,8 +23,8 @@
 
 ## 🌳 패키지 구조
 
----
-```
+
+```bash
 └── src
     ├── main
     │   ├── java
@@ -73,7 +72,7 @@
 
 ## 📚 DB 설계
 
----
+
 ![img.png](img.png)
 
 
@@ -83,9 +82,9 @@
 
 ## 📌 목차
 
----
+
 - [필수 기능 요구사항](#필수-기능-요구사항)
-- [기능 구현](#-기능-구현)
+- [기능 구현 방식](#-기능-구현-벙식)
     - [1. Entity](#1-entity)
       - [BoardEntity](#boradentity)
       - [ArticleEntity](#articleentity)
@@ -113,7 +112,7 @@
 
 ## ✅ 필수 기능 요구사항
 
----
+
 <details>
   <summary><b>게시판 기능</b></summary>
   <div markdown="1">
@@ -166,9 +165,9 @@
 
 
 
-## 📝 기능 구현
+## 📝 기능 구현 방식
 
----
+
 
 
 ## 1. Entity
@@ -871,8 +870,15 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
 
 ## 진행중 발생한 어려움에 대한 기록
 
-## 완성된 프로젝트를 어떻게 실행하고 테스트 하는지에 대한 기록
+## 프로젝트 실행 및 테스트 방법
+우선 해당 프로젝트의 주소 복사하여 git clone 을 통해 소스코드를 폴더를 다운로드 합니다.
+```bash
+Github 레포지토리 클론
+$ git clone https://github.com/m1nddoong/Mission_OOO.git
+```
+그런 다음 `IntelliJ` 에서 `Mission_OOO` 프로젝트를 `Open` 해줍니다. 
 
+`src/main/java/com/example/AnonymForum/AnonymForumApplication.java` 클래스 파일의 Main 문을 실행합니다.  
 
 
 ## 결론
