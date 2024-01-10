@@ -73,7 +73,6 @@ public class ArticleController {
             // 비밀번호가 일치하지 않을 경우 에러 메세지와 함꼐 다시 수정 폼으로 이동
             return "redirect:/article/" + id + "/update-view?error=password";
         }
-
     }
 
     @PostMapping("{articleId}/delete")
