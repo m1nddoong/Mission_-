@@ -12,5 +12,7 @@
 <div th:each="article : ${articles}">
     <p><a th:href="@{/article/{id}(id=${article.id})}" th:text="${article.title}"></a></p>
 </div>
+<br>
+<a th:href="@{/boards}">뒤로 가기</a>
 </body>
 </html>

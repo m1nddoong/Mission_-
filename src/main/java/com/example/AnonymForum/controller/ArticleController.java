@@ -2,6 +2,7 @@ package com.example.AnonymForum.controller;
 
 
 import com.example.AnonymForum.entity.ArticleEntity;
+import com.example.AnonymForum.entity.BoardEntitiy;
 import com.example.AnonymForum.entity.CommentEntity;
 import com.example.AnonymForum.service.ArticleService;
 import com.example.AnonymForum.service.BoardService;
@@ -26,6 +27,7 @@ public class ArticleController {
 
     private final ArticleService articleService;
     private final CommentService commentService;
+    private final BoardService boardService;
 
 
     @GetMapping("{articleId}")
@@ -34,6 +36,12 @@ public class ArticleController {
         List<CommentEntity> comments = commentService.readAllCommentsById(id);
         model.addAttribute("article", articleEntity);
         model.addAttribute("comments", comments);
+
+        // 뒤로 가기 버튼을 위한 board 객체 가져와 모델에 추가
+        Long boardId = articleEntity.getBoard().getId();
+        BoardEntitiy board = boardService.readOneBoard(boardId);
+        model.addAttribute("board", board);
+
         return "article/read";
     }
 
