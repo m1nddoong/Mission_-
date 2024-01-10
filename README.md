@@ -6,7 +6,7 @@
 ## ☀️ 프로젝트 소개
 - 익명 의견 교환 웹 페이지 서비스 🗣️
 
-![img_1.png](img_1.png)
+![img_1.png](img/img_1.png)
 
 
 
@@ -73,7 +73,7 @@
 ## 📚 DB 설계
 
 
-![img.png](img.png)
+![img.png](img/img.png)
 
 
 
@@ -895,24 +895,24 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
 Github 레포지토리 클론
 $ git clone https://github.com/m1nddoong/Mission_OOO.git
 ```
-![img_2.png](img_2.png)
+![img_2.png](img/img_2.png)
 그리고 `IntelliJ` 에서 `Mission_OOO` 프로젝트를 `Open` 해준다.
 
 ### datasource 설정
 프로젝트가 열리면 오른쪽 `Database` 메뉴를 클릭해 `datasource`로 `SQL Lite` 를 추가한다.
 
-![img_3.png](img_3.png)
+![img_3.png](img/img_3.png)
 
 파일 이름을 `db.sqlite` 로 수정하고 OK 버튼을 눌러준다.
 
-![img_4.png](img_4.png)
+![img_4.png](img/img_4.png)
 
 `datasource`를 추가해주고 난 뒤 `src/main/java/com/example/AnonymForum/AnonymForumApplication.java`
 라는 클래스 파일의 Main 문을 실행한면 아래와 같이 3개의 테이블이 만들어지고, `board` 테이블에 더미 데이터가 추가된 것을
 확인할 수 있다.
 
-![img_5.png](img_5.png)
-![img_6.png](img_6.png)
+![img_5.png](img/img_5.png)
+![img_6.png](img/img_6.png)
 
 ### application.yml 설정
 
@@ -943,31 +943,31 @@ spring:
 ### 게시판 목록 확인하기
 웹 페이지에 접속하기 위해서 http://localhost:8080/boards 를 웹 브라우저의 URL로 입력하면 다음과 같은 홈페이지 화면이 나온다.
 게시판 목록을 확인할 수 있고 하단의 게시물 작성하기로 게시물을 작성할 수 있다.
-![img_7.png](img_7.png)
+![img_7.png](img/img_7.png)
 
 ### 게시물 작성하기
 아래의 내용을 작성한 뒤 `글 생성` 을 클릭한다. (비밀번호 : `1111`)
-![img_8.png](img_8.png)
+![img_8.png](img/img_8.png)
 
 ### 특정 게시판의 게시물 목록 확인하기
 게시판 목록에서 `자유 게시판` 을 클릭하여 게시물 목록에 `점메추` 라는 항목이 있음을 확인한다.
-![img_9.png](img_9.png)
+![img_9.png](img/img_9.png)
 
 ### 전체 게시판 확인하기
 앞선 게시물 작성하기와 동일한 과정으로 각 게시판에 게시물을 하나씩 생성해준다. 그런 다음 `1. 전체게시판` 을 클릭하면
 가장 최근에 작성한 게시물이 상단에 위치한 전체 게시판의 게시물들의 리스트를 확인할 수 있다.
-![img_15.png](img_15.png)
+![img_15.png](img/img_15.png)
 
 ### 단일 게시물 페이지 들어가기
 게시물 목록에서 `점메추` 를 클릭하면 아래와 같은 단일 게시물 페이지 화면을 볼 수 있다.
-![img_10.png](img_10.png)
+![img_10.png](img/img_10.png)
 
 
 ### 게시물 수정하기
 게시물 수정하기 버튼을 누르면 게시글 수정하기 페이지로 이동한다. 아까 설정했던 비밀번호 `1111` 을 올바르게 입력한 뒤 `저장` 을 클릭하면
 게시글이 수정된다. (비밀번호를 틀렸을 경우 다음과 같이 비밀번호가 틀렸다는 `오류` 문구 출력)
-![img_11.png](img_11.png)
-![img_12.png](img_12.png)
+![img_11.png](img/img_11.png)
+![img_12.png](img/img_12.png)
 
 ### 게시물 삭제하기 (생략)
 게시물을 작성할 때 입력한 비밀번호(`1111`)를 입력한 뒤 `삭제` 버튼을 누르면 게시물이 삭제되고 홈페이지(게시판 목록)로 이동한다.
@@ -975,7 +975,7 @@ spring:
 
 ### 댓글 작성하기
 비밀번호(`2222`)로 입력하고, 댓글을 작성한 뒤 `추가` 버튼을 누르면 다음과 같이 댓글 목록에 댓글이 추가된 것을 볼 수 있다.
-![img_13.png](img_13.png)
+![img_13.png](img/img_13.png)
 
 ### 댓글 삭제하기 (생략)
 댓글을 작성할 떄 입력한 비밀번호(`2222`)를 입력한 뒤, "저녁으로 치킨 ㄱㄱ" 라고 하는 댓글 오른쪽의 `삭제` 버튼을 클릭하면
