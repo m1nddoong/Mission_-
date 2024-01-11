@@ -7,28 +7,27 @@
 <body>
 <h1>게시글 작성하기</h1>
 <form th:action="@{'/boards/create-view'}" method="post">
+    <table>
+        <tr>
+            <td><label>제목 : </label></td>
+            <td><input type="text" name="title" placeholder="제목을 입력하세요"></td>
+        </tr>
+        <tr>
+            <td><label>비밀번호 : </label></td>
+            <td><input type="password" name="password" placeholder="비밀번호을 입력하세요"></td>
+        </tr>
+        <tr>
+            <td><label>게시판 선택 : </label></td>
+            <td>
+                <select name="boardId">
+                    <option th:each="board: ${AllBoards}" th:value="${board.id}" th:text="${board.boardName}"></option>
+                </select>
+            </td>
+        </tr>
+    </table>
     <div>
-        <label>
-            제목: <input type="text" name="title" placeholder="제목을 입력하세요">
-        </label>
-    </div>
-    <div>
-        <label>
-            내용 : <input type="text" name="content" placeholder="내용을 입력하세요">
-        </label>
-    </div>
-    <div>
-        <label>
-            비밀번호 : <input type="password" name="password" placeholder="비밀번호을 입력하세요">
-        </label>
-    </div>
-    <div>
-        <label>
-            게시판 선택 :
-            <select name="boardId">
-                <option th:each="board: ${AllBoards}" th:value="${board.id}" th:text="${board.boardName}"></option>
-            </select>
-        </label>
+        <p>내용 :</p>
+        <textarea name="content" cols="50" rows="10" placeholder="내용을 입력하세요" style="overflow-y:scroll; overflow-x:hidden; resize: none;" required></textarea>
     </div>
     <button type="submit">글 생성</button>
     <br>
