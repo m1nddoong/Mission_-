@@ -16,8 +16,8 @@
 - Java : `17`
 - Framework : `Spring Boot 3.2.1`
 - Build : `gradle`
-- DataBase : `SQLite`
-  - 임시로 SQLite 를 적용하였고, 추후에 다른 데이터베이스로 적용할 예정입니다.
+- Front : `Thymeleaf`
+- DataBase : `SQLite` -> `H2 Database`
 - ORM : `JPA`
 
 
