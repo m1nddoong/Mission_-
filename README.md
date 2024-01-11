@@ -1032,7 +1032,7 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
 ### git clone
 우선 해당 프로젝트의 주소 복사하여 git clone 을 통해 소스코드를 폴더를 다운로드 합니다.
 ```bash
-Github 레포지토리 클론
+# Github 레포지토리 클론
 $ git clone https://github.com/m1nddoong/Mission_OOO.git
 ```
 ![img_2.png](img/img_2.png)
