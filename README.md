@@ -958,10 +958,7 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
            BoardEntity board = boardService.readOneBoard(boardId);
            model.addAttribute("board", board);
        ```
-       
-   - 메서드 전체를 Optional 로 감싸면 나중에 HTML 에서 th:if 로 isPresent() 에 따라 ${article.get().id} 런식으로 get() 메서드 사용
-   - 만약 내부에서 Optional 을 처리하면 그냥 ${article.id} 접근 가능 (실제 값이든 null 이든 들어가있을 테니까)
-     
+
 
 
 
