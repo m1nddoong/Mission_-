@@ -198,10 +198,11 @@
   @Data
   @Entity
   @Table(name="board")
-  public class BoardEntitiy { 
+  public class BoardEntity { 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
+        @Column(name="board_name")
         private String board_name;
   }
   ```
@@ -271,7 +272,7 @@
   - Board 엔티티에 대한 Repository 인터페이스
   ```java
   @Repository
-  public interface BoardRepository extends JpaRepository<BoardEntitiy, Long> {}
+  public interface BoardRepository extends JpaRepository<BoardEntity, Long> {}
   ```
 ### ArticleRepository
   - Article 엔티티에 대한 Repository 인터페이스
@@ -300,22 +301,22 @@
     - 주어진 게시판 ID에 해당하는 게시판 엔티티를 조회하고, 존재하면 해당 엔티티를 반환
     - Optional 을 사용하여 null 을 반환하지 않도록 구현
     ```java
-    public BoardEntitiy readOneBoard(Long id) 
-        Optional<BoardEntitiy> optionalBoard = boardRepository.findById(id);
+    public BoardEntity readOneBoard(Long id) 
+        Optional<BoardEntity> optionalBoard = boardRepository.findById(id);
         return optionalBoard.orElse(null);
     ```
   - `readAllBoards();`
     - 모든 게시판의 목록을 가져오는 메서드
     - 데이터베이스에 저장된 모든 게시판 엔티티를 조회하고, 목록으로 반환
     ```java
-    public List<BoardEntitiy> readAllBoards() {
+    public List<BoardEntity> readAllBoards() {
         return boardRepository.findAll();
     ```
   - `readBoardById(Long boardId)`
     - 특정 게시판의 정보를 Optional 로 반환하는 메서드
     - 주어진 게시판 ID에 해당하는 게시판 엔티티를 조회하고, Optional 로 감싸서 반환
     ```java
-    public Optional<BoardEntitiy> readBoardById(Long boardId) {
+    public Optional<BoardEntity> readBoardById(Long boardId) {
         return boardRepository.findById(boardId);
     ```
 ### ArticleService
@@ -324,10 +325,10 @@
     - 제목, 내용, 비밀번호, 속한 게시판의 ID(boardId)를 인자로 받아 ArticleEntity 객체를 생성하고 저장
     ```java
     public void createArticle(
-        String title,
-        String content,
-        Long password,
-        Long boardId
+            String title,
+            String content,
+            Long password,
+            Long boardId
     ) {
         ArticleEntity article = new ArticleEntity();
         article.setTitle(title);
@@ -371,10 +372,10 @@
     - 주어진 ID에 해당하는 게시물을 불러와 비밀번호를 확인한 후, 일치하면 제목과 내용을 업데이트하고 저장
     ```java
     public void updateArticle(
-        Long id,
-        String title,
-        String content,
-        Long password
+            Long id,
+            String title,
+            String content,
+            Long password
     ) {
         ArticleEntity article = readOneArticle(id);
         if (article.getPassword().equals(password)) {
@@ -403,9 +404,9 @@
     - 메세지, 비밀번호, 헤당 게시물의 ID 를 인자로 받아 CommentEntity 객체를 생성하고 저장
     ```java
     public void createComment(
-        String message,
-        Long password,
-        Long articleId
+            String message,
+            Long password,
+            Long articleId
     ) {
         CommentEntity comment = new CommentEntity();
         comment.setMessage(message);
@@ -434,9 +435,9 @@
     - 주어진 commentId에 해당하는 댓글을 불러와 비밀번호를 확인한 후, 일치하면 해당 댓글을 삭제
     ```java
     public void deleteComment(
-        Long articleId,
-        Long commentId,
-        Long password
+            Long articleId,
+            Long commentId,
+            Long password
     ) {
         CommentEntity comment = readOneCommentById(commentId);
         if (comment.getPassword().equals(password)) {
@@ -499,8 +500,8 @@ public String readOneBoard(@PathVariable("boardId") Long boardId, Model model) {
 // 몇번(id) 게시판에, 게시글 작성화면 보기
 @GetMapping("/create-view")
 public String create(Model model) {
-    List<BoardEntitiy> boardEntitiyList = boardService.readAllBoards();
-    model.addAttribute("AllBoards", boardEntitiyList);
+    List<BoardEntity> boardEntityList = boardService.readAllBoards();
+    model.addAttribute("AllBoards", boardEntityList);
     // 게시글 작성 화면 보여주기 (Get)
     return "board/create";
 }
@@ -543,7 +544,7 @@ public String readOneArticle(@PathVariable("articleId") Long id, Model model) {
 
     // 뒤로 가기 버튼을 위한 board 객체 가져와 모델에 추가
     Long boardId = articleEntity.getBoard().getId();
-    BoardEntitiy board = boardService.readOneBoard(boardId);
+    BoardEntity board = boardService.readOneBoard(boardId);
     model.addAttribute("board", board);
 
     return "article/read";
@@ -700,7 +701,7 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
 
 - 게시판 이름 표시
 ```html
-<h1 th:text="${board.board_name}"></h1>
+<h1 th:text="${board.boardName}"></h1>
 ```
 
 - 게시글 목록 표시
@@ -747,7 +748,7 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
         <label>
             게시판 선택 :
             <select name="boardId">
-                <option th:each="board: ${AllBoards}" th:value="${board.id}" th:text="${board.board_name}"></option>
+                <option th:each="board: ${AllBoards}" th:value="${board.id}" th:text="${board.boardName}"></option>
             </select>
         </label>
     </div>
@@ -870,7 +871,7 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
   </div>
   <div>
     <label>
-      비밀번호 : <input type="text" name="password">
+      비밀번호 : <input type="password" name="password" placeholder="비밀번호을 입력하세요">
     </label>
   </div>
   <!-- 수정 폼에서 에러 메시지를 표시하는 부분 -->
@@ -885,29 +886,148 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
 
 ## 어려웠던 점을 어떻게 해결했는지
 
-1. 타임리프 문법 헷갈림 이슈
-2. jpa 쿼리 메서드
-   - findById 로는 단일 엔티티 반환만 가능하다. 하지만 하나의 Id 로 여러개의 엔티티 리스트를 얻어오기 위해서
-   - 추가적인 메서드가 필요 -> 근데 그게 쿼리 메서드? 띠용?
-   - 규칙이 있더던데?
-3. Optional 은 아직도 어려워
-   - 메서드 전체를 Optional 로 감싸서 나중에 null 임을 체크하기 vs 혹은 메서드 내부의 객체를 Optional 로 감싸고 실제 값 혹은 null을 반환하기
-     - 메서드 전체를 Optional 로 감싸면 나중에 HTML 에서 th:if 로 isPresent() 에 따라 ${article.get().id} 런식으로 get() 메서드 사용
+1. 타임리프 문법
+   - 문제 
+     - 특정 URL 요청을 컨트롤러가 받고 서비스의 비즈니스 로직 처리 후 해당 데이터를 모델에 담아 뷰로 보낼떄
+     - 어떤 HTML 요소들에 어떤 타임 리프 문법이 적용되어야 하는지 익숙하지 않았다.
+   - 해결
+     - 구글 자료 참고
+     - 일부 문법 요약
+       - 변수 표현식 : `${board.boardName}`
+       - 선택 및 반복 : `th:if`, `th:unless`, `th:each`
+       - 속성 바인딩 : `th:src`, `th:href`
+       - URL 링크 처리 : `@{/article/{id}/update-view(id=${article.id})`
+       - 폼 처리 : `th:action`
+
+
+2. JPA Query Method
+   - 문제 
+     - `findById` 로는 단일 엔티티 반환만 가능하다. 하지만 하나의 `Id` 로 여러개의 엔티티 리스트를 얻어오기 위해서 추가적인 메서드가 필요
+   - 해결
+     - `JPA Query Method` 는 `Spring Data JPA` 에서 제공하는 간편한 쿼리 생성 기능이다.
+     - `JPA Query Method` 로 해결
+     ```java
+     @Repository
+     public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
+        List<CommentEntity> findAllByArticleId(Long articleId);
+     }
+     ```
+
+3. Optional
+   - 문제 
+     - 서비스 단의 메서드를 만들 때, 메서드 전체를 Optional 로 할것인지, 내부 객체를 Optional 로 감싸는지를 선택함에 있어서 어려움을 겪었다.
+   - 해결 
+     - 내부 객체를 Optional 로 감싸는 방식 채택하여
+     - MVC 패턴에서 서비스 레이어가 비즈니스 로직 처리에 더 많은 책임을 지게끔 했던 것 같다.
+   - 방법
+     - 메서드 전체를 `Optional` 로 감싸기
+       - 메서드가 Optional 을 반환하도록 한다.
+       - 이 경우, 메서드를 호출한 곳에서는 `Optional`의 메서드를 활용하여 값의 존재 여부를 체크하고 안전하게 처리할 수 있다.
+       ```java
+       public Optional<BoardEntity> readBoardById(Long boardId) {
+          return boardRepository.findById(boardId);
+       }
+       ```
+       - 호출
+       ```java
+       @GetMapping("/{boardId}")
+       public String readOneBoard(@PathVariable("boardId") Long boardId, Model model) {
+          ...
+          // 게시판 정보 가져오기
+          Optional<BoardEntity> optionalBoardEntity = boardService.readBoardById(boardId);
+          optionalBoardEntity.ifPresent(boardEntity -> model.addAttribute("board", boardEntity));
+       ```
+     - 메서드 내부의 객체를 `Optional`로 감싸고 값 혹은 null 반환
+       - 메서드의 반환 타입은 Optional 이 아닌 기본 타입이나 객체 타입이며, 내부에서 Optional을 사용하여 값 혹은 null 을 다룬다.
+       - 이 경우, 호출하는 측에서 일반적인 객체에 접근하듯이 처리할 수 있다.
+       ```java
+       public BoardEntity readOneBoard(Long id) {
+           Optional<BoardEntity> optionalBoard = boardRepository.findById(id);
+           return optionalBoard.orElse(null);
+       }
+       ```
+       - 호출
+       ```java
+       @GetMapping("{articleId}")
+       public String readOneArticle(@PathVariable("articleId") Long id, Model model) {
+           ...
+           // 뒤로 가기 버튼을 위한 board 객체 가져와 모델에 추가
+           Long boardId = articleEntity.getBoard().getId();
+           BoardEntity board = boardService.readOneBoard(boardId);
+           model.addAttribute("board", board);
+       ```
+       
+   - 메서드 전체를 Optional 로 감싸면 나중에 HTML 에서 th:if 로 isPresent() 에 따라 ${article.get().id} 런식으로 get() 메서드 사용
    - 만약 내부에서 Optional 을 처리하면 그냥 ${article.id} 접근 가능 (실제 값이든 null 이든 들어가있을 테니까)
-     - 이 방법으로 오류 해결
-   - 게시판을 찾는 부분에서 아래 코드의 문법이 뭔지 모르겠삼,,
-   ![img.png](img.png)
-4. 내림차순 정렬
-   - Comparable 을 상속 받아서 compareTo 메서드 오버라이드 (Comparable 자체가 어려움,, 왤케 생소하지)![img_1.png](img_1.png)
-5. 특정 URL을 처리하는 컨트롤러 메서드 요청 중복?
-   - http://localhost:8080/article/7 에 삭제하기, 댓글 작성, 댓글 보기 등 여러가지 것들을 보여줘야 한다면?
-     - 헤결 : 합칠건 합치고 (GET 메서드), 분리할건 분리하지(POST 메서드)
-6. OneToMany 엔티티 간의 순환 참조로 인해 무한 재귀 호출이 발생
-   - 서로가 서로를 참조하면서 무한 재귀 호출이 발생했던 문제를 `@ToString.Exclude` 애너테이션을 사용하면 해결된다.
-7. 에러메세지 중복 문제 해결
-   - `<div th:if="${param.error}">` 에서 error 부분을 `articleError` 등과 같이 바꿔주고
-   - `return "redirect:/article/" + articleId + "?articleError=password";` 처럼 URL 을 만들어줄떄도
-   error 의 변경사항을 반영?3333333333 
+     
+
+
+
+4. 내림차순 정렬 
+   - 문제
+     - `ArticleEntity` 객체들을 내림차순 정렬을 해야 현재 겍체가 더 앞에 위치할 수 있다, 따라서 내림 차순을 구현해야 한다.
+   - 해결
+     - `ArticleEntity` 클래스의 객체를 ID를 기준으로 내림차순으로 정렬하기 위해 `compareTo` 메서드를 구현한다.
+     - `compareTo` 메서드는 `Comparable` 인터페이스에서 제공하는 메서드로, 두 객체를 비교하여 정렬 순서를 결정할 수 있다.
+     ```java
+     @Override
+     public int compareTo(ArticleEntity other) {
+     // id를 기준으로 내림차순 정렬
+          return other.getId().compareTo(this.getId());
+     }
+     ```
+ 
+
+5. 엔티티 클래스에서 `@toString` 순환 참조로 인해 무한 재귀 호출이 발생 
+   - 문제점
+     - 반적으로 `Thymeleaf`나 다른 뷰 템플릿에서 모델을 이용하여 객체를 표현할 때, 해당 객체의 `toString` 메서드가 자동으로 호출될 수 있습니다. 
+     - 이러한 호출은 주로 `th:text`, `th:value` 등의 템플릿 엔진에서 사용되는 표현식에서 일어난다.
+     - 문제는 `ArticleEntity` 클래스와 `CommentEntity` 클래스 간에 양방향 관계가 설정되어 있다는 점이다.
+     - 이 때, `Lombok`의 `@Data` 애너테이션은 기본적으로 모든 필드에 대한 `toString` 메서드를 생성하므로, 
+     양방향 관계에서 서로를 무한히 호출하는 순환 참조로 이어질 수 있다.
+   - 해결 
+     - Lombok에서 제공하는 `@ToString.Exclude` 애너테이션을 활용하여 특정 필드를 `toString()` 메서드에서 제외시킨다.
+     - 예를 들어, `@ToString.Exclude`를 `comments` 필드에 적용하면, 해당 필드는 `toString()`에서 제외되어 무한 재귀 호출을 방지할 수 있다.
+     ```java
+     @Data
+     @Table(name="article")
+     public class ArticleEntity implements Comparable<ArticleEntity>{
+
+     // 게시판과 댓글의 양방향 관계 매핑
+     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+     @ToString.Exclude
+     private List<CommentEntity> comments = new ArrayList<>();
+     ```
+
+
+6. 에러메세지 중복 문제 
+   - 문제점 
+     - `<div th:if="${param.error}">` 라는 코드가 중복 사용되는 문제
+   - 해결
+     - Thymeleaf 템플릿 파일에서 `<div th:if="${param.error}">` 부분을 `<div th:if="${param.articleError}">`로 수정
+     - 컨트롤러에서 리다이렉트 `URL`을 생성할 때 `articleError`로 변경합니다.
+     ```java
+     // Before
+     return "redirect:/article/" + articleId + "?articleError=password";
+
+     // After
+     return "redirect:/article/" + articleId + "?articleError=password";
+     ```
+   
+
+7. DB를 `H2 Database` 로 변경 시 `Table "BOARD" not found` 오류
+   - 문제점
+     - 원할한 개발을 위해 기존 데이터베이스로 `SQLite`를 선택하여 진행하였고, 이후 완성된 프로젝트를 특별한 설정 없이 
+     실행이 가능한도록 만들기 위해 `H2 Database` 의 `in-memory`모드를 구현하고자 했다.
+     - 설정 과정에서 `data.sql`, `application.yml` 파일의 일부를 수정하였지만 `BOARD` 라는 테이블을 찾을 수 없다는 오류가 나왔다.
+   - 해결
+     - 기본적으로 `H2 Database`는 대소문자를 구분하지 않는 경우가 많아 발생한 오류라고 판단하여 아래와 같이 해당 엔티티 클래스의
+     필드 이름은 `Camelcase` 유지하되, `@Column(name = "board_name")` 어노테이션을 사용
+     - 이 설정을 통해 데이터베이스 테이블이 생성될 떄 해당 필드를 `board_name` 으로 생성하여 대소문자의 오류를 피한다.
+     ```java
+     @Column(name="board_name")
+         private String boardName;
+     ```
 
 ## 프로젝트 실행
 ### git clone
