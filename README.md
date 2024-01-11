@@ -82,6 +82,7 @@
 
 ## 📌 목차
 
+기능 구현
 
 - [기능 요구사항](#기능-요구사항)
 - [기능 구현 방식](#-기능-구현-벙식)
@@ -107,12 +108,13 @@
       - [board/create.html](#boardcreatehtml)
       - [article/read.html](#articlereadhtml)
       - [article/update.html](#articleupdatehtml)
+
+프로젝트 테스트
 - [개발 진행중 발생한 어려움에 대한 기록](#진행중-발생한-어려움에-대한-기록)
-- [Spring Boot 프로젝트 실향](#프로젝트-실행)
+- [Spring Boot 프로젝트 실행](#프로젝트-실행-및-테스트)
   - [git clone](#git-clone)
-  - [datasource 설정](#datasource-설정)
-  - [application.yml 설정](#applicationyml-설정)
-- [테스트 방법](#테스트-방법)
+  - [H2 데이터베이스 접속](#h2-database-접속)
+- [웹 페이지 접속 및 테스트](#프로젝트-실행-및-db-접속)
   - [게시판 목록 확인하기](#게시판-목록-확인하기)
   - [게시물 작성하기](#게시물-작성하기)
   - [특정 게시판의 게시물 목록 확인하기](#특정-게시판의-게시물-목록-확인하기)
@@ -1029,7 +1031,7 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
          private String boardName;
      ```
 
-## 프로젝트 실행
+## 프로젝트 실행 및 DB 접속
 ### git clone
 우선 해당 프로젝트의 주소 복사하여 git clone 을 통해 소스코드를 폴더를 다운로드 합니다.
 ```bash
@@ -1037,50 +1039,25 @@ Github 레포지토리 클론
 $ git clone https://github.com/m1nddoong/Mission_OOO.git
 ```
 ![img_2.png](img/img_2.png)
-그리고 `IntelliJ` 에서 `Mission_OOO` 프로젝트를 `Open` 해준다.
+그리고 `IntelliJ` 에서 `Mission_OOO` 프로젝트를 `Open` 해준뒤 `Main` 을 실행해준다.
 
-### datasource 설정
-프로젝트가 열리면 오른쪽 `Database` 메뉴를 클릭해 `datasource`로 `SQL Lite` 를 추가한다.
+![img_2.png](img_2.png)
 
-![img_3.png](img/img_3.png)
+### H2 Database 접속
 
-파일 이름을 `db.sqlite` 로 수정하고 OK 버튼을 눌러준다.
+`Main` 실행 이후 http://localhost:8080/h2-console 의 `URL` 을 웹 브라우저로 접속하면 아래와 같은 화면이 나온다.
 
-![img_4.png](img/img_4.png)
+JDBC URL 을 `jdbc:h2:mem:test` 로 설정하고 `Connect` 클릭
 
-`datasource`를 추가해주고 난 뒤 `src/main/java/com/example/AnonymForum/AnonymForumApplication.java`
-라는 클래스 파일의 Main 문을 실행한면 아래와 같이 3개의 테이블이 만들어지고, `board` 테이블에 더미 데이터가 추가된 것을
-확인할 수 있다.
+![img_3.png](img_3.png)
 
-![img_5.png](img/img_5.png)
-![img_6.png](img/img_6.png)
+`SELECT * FROM BOARD` 를 작성하고 쿼리를 실행하면 다음과 같이 총 5개의 게시판이 생성된 것을 확인할 수 있다.
 
-### application.yml 설정
+![img_5.png](img_5.png)
 
-`ddl-auto: update` 로 바꿔주고, `data.sql` 내부 `SQL` 문을 실행시키지 않게 하기 위해 
-`sql.init.mode: always` 를 주석처리한다.
+CRUD 에 따른 `H2 Database` 상의 데이터들의 변동 사항도 확인해볼 수 있다.
 
-```yml
-spring:
-  datasource:
-    url: jdbc:sqlite:db.sqlite
-    driver-class-name: org.sqlite.JDBC
-    # username : sa
-    # password : password
-  jpa:
-    hibernate:
-      # dde-auto: create
-      ddl-auto: update
-    show-sql: true
-    database-platform: org.hibernate.community.dialect.SQLiteDialect
-    defer-datasource-initialization: true
-#  sql:
-#    init:
-#      mode: always
-```
-
-## 테스트 방법
-
+## 웹 페이지 접속 및 테스트
 ### 게시판 목록 확인하기
 웹 페이지에 접속하기 위해서 http://localhost:8080/boards 를 웹 브라우저의 URL로 입력하면 다음과 같은 홈페이지 화면이 나온다.
 게시판 목록을 확인할 수 있고 하단의 게시물 작성하기로 게시물을 작성할 수 있다.
