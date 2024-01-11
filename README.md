@@ -1036,7 +1036,7 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
 $ git clone https://github.com/m1nddoong/Mission_OOO.git
 ```
 ![img_2.png](img/img_2.png)
-그리고 `IntelliJ` 에서 `Mission_OOO` 프로젝트를 `Open` 해준뒤 `Main` 을 실행해준다.
+그리고 `IntelliJ` 에서 다운로드 받은 `Mission_MINSEONIK` 프로젝트를 `Open` 해준뒤 `Main` 을 실행해준다.
 
 ![img_2.png](img_2.png)
 
