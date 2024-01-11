@@ -2,7 +2,6 @@ package com.example.AnonymForum.service;
 
 
 import com.example.AnonymForum.entity.ArticleEntity;
-import com.example.AnonymForum.entity.BoardEntitiy;
 import com.example.AnonymForum.entity.CommentEntity;
 import com.example.AnonymForum.repository.ArticleRepository;
 import com.example.AnonymForum.repository.CommentRepository;

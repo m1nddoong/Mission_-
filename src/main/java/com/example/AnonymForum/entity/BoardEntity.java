@@ -1,5 +1,6 @@
 package com.example.AnonymForum.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.GeneratedValue;
@@ -11,9 +12,11 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="board")
-public class BoardEntitiy {
+public class BoardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String board_name;
+
+    @Column(name="board_name")
+    private String boardName;
 }

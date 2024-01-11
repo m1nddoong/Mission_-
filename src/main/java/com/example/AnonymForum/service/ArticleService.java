@@ -1,7 +1,7 @@
 package com.example.AnonymForum.service;
 
 import com.example.AnonymForum.entity.ArticleEntity;
-import com.example.AnonymForum.entity.BoardEntitiy;
+import com.example.AnonymForum.entity.BoardEntity;
 import com.example.AnonymForum.repository.ArticleRepository;
 import com.example.AnonymForum.repository.BoardRepository;
 import java.util.Collections;
@@ -29,7 +29,7 @@ public class ArticleService {
         article.setPassword(password);
 
         // 게시판을 찾는다.
-        Optional<BoardEntitiy> optionalBoardEntity = boardRepository.findById(boardId);
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(boardId);
         optionalBoardEntity.ifPresent(article::setBoard);
 
 

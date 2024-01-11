@@ -1,7 +1,7 @@
 package com.example.AnonymForum.controller;
 
 import com.example.AnonymForum.entity.ArticleEntity;
-import com.example.AnonymForum.entity.BoardEntitiy;
+import com.example.AnonymForum.entity.BoardEntity;
 import com.example.AnonymForum.service.ArticleService;
 import com.example.AnonymForum.service.BoardService;
 import java.util.List;
@@ -48,7 +48,7 @@ public class BoardController {
         model.addAttribute("articles", articleService.ArticleSortById(articles));
 
         // 게시판 정보 가져오기
-        Optional<BoardEntitiy> optionalBoardEntity = boardService.readBoardById(boardId);
+        Optional<BoardEntity> optionalBoardEntity = boardService.readBoardById(boardId);
         optionalBoardEntity.ifPresent(boardEntity -> model.addAttribute("board", boardEntity));
 
         return "board/read";
@@ -59,7 +59,7 @@ public class BoardController {
     // 몇번(id) 게시판에, 게시글 작성화면 보기
     @GetMapping("/create-view")
     public String create(Model model) {
-        List<BoardEntitiy> boardEntitiyList = boardService.readAllBoards();
+        List<BoardEntity> boardEntitiyList = boardService.readAllBoards();
         model.addAttribute("AllBoards", boardEntitiyList);
         // 게시글 작성 화면 보여주기 (Get)
         return "board/create";

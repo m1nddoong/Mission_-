@@ -1,11 +1,6 @@
 package com.example.AnonymForum.controller;
 
-import com.example.AnonymForum.entity.ArticleEntity;
-import com.example.AnonymForum.entity.BoardEntitiy;
-import com.example.AnonymForum.entity.CommentEntity;
-import com.example.AnonymForum.repository.CommentRepository;
 import com.example.AnonymForum.service.CommentService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

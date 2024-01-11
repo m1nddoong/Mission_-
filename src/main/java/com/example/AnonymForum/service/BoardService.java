@@ -1,6 +1,6 @@
 package com.example.AnonymForum.service;
 
-import com.example.AnonymForum.entity.BoardEntitiy;
+import com.example.AnonymForum.entity.BoardEntity;
 import com.example.AnonymForum.repository.BoardRepository;
 import java.util.List;
 import java.util.Optional;
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public BoardEntitiy readOneBoard(Long id) {
-        Optional<BoardEntitiy> optionalBoard = boardRepository.findById(id);
+    public BoardEntity readOneBoard(Long id) {
+        Optional<BoardEntity> optionalBoard = boardRepository.findById(id);
         return optionalBoard.orElse(null);
     }
 
-    public List<BoardEntitiy> readAllBoards() {
+    public List<BoardEntity> readAllBoards() {
         return boardRepository.findAll();
     }
 
-    public Optional<BoardEntitiy> readBoardById(Long boardId) {
+    public Optional<BoardEntity> readBoardById(Long boardId) {
         return boardRepository.findById(boardId);
     }
 }

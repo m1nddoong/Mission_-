@@ -10,7 +10,7 @@
 <hr>
 <h3>게시판 목록</h3>
 <div th:each="board: ${AllBoards}">
-    <p>[[${board.id}]]. <a th:href="@{/boards/{id}(id=${board.id})}">[[${board.board_name}]]</a></p>
+    <p>[[${board.id}]]. <a th:href="@{/boards/{id}(id=${board.id})}">[[${board.boardName}]]</a></p>
 </div>
     <br><a href="/boards/create-view">게시글 작성</a>
 </body>

@@ -27,8 +27,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	// sqlite
-	runtimeOnly 'org.xerial:sqlite-jdbc:3.41.2.2'
-	runtimeOnly 'org.hibernate.orm:hibernate-community-dialects:6.2.4.Final'
+	// runtimeOnly 'org.xerial:sqlite-jdbc:3.41.2.2'
+	// runtimeOnly 'org.hibernate.orm:hibernate-community-dialects:6.2.4.Final'
+
+	// H2 Database
+	runtimeOnly 'com.h2database:h2'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

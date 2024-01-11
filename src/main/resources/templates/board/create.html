@@ -26,7 +26,7 @@
         <label>
             게시판 선택 :
             <select name="boardId">
-                <option th:each="board: ${AllBoards}" th:value="${board.id}" th:text="${board.board_name}"></option>
+                <option th:each="board: ${AllBoards}" th:value="${board.id}" th:text="${board.boardName}"></option>
             </select>
         </label>
     </div>

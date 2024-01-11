@@ -28,7 +28,7 @@ public class ArticleEntity implements Comparable<ArticleEntity>{
     // 여러개의 article(N) : board(1) 의 관계
     @ManyToOne
     @JoinColumn(name = "board_id")  // 외래 키(Foreign Key)를 지정합니다.
-    private BoardEntitiy board;
+    private BoardEntity board;
 
     // 게시판과 댓글의 양방향 관계 매핑
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)

@@ -1,9 +1,9 @@
-INSERT INTO board (board_name)
-VALUES ('전체 게시판'),
-       ('자유 게시판'),
-       ('개발 게시판'),
-       ('일상 게시판'),
-       ('사건사고 게시판');
+INSERT INTO board (board_name) VALUES ('전체 게시판');
+INSERT INTO board (board_name) VALUES ('자유 게시판');
+INSERT INTO board (board_name) VALUES ('개발 게시판');
+INSERT INTO board (board_name) VALUES ('일상 게시판');
+INSERT INTO board (board_name) VALUES ('사건사고 게시판');
+
 --
 -- INSERT INTO article (board_id, id, password, content, title)
 -- VALUES  (2, 1, 1111, '꾸준한 블로그 정리, 읽는 것 보단 직접 파이팅하는 것', 'Spring Boot 공부방법 공유'),

@@ -907,7 +907,7 @@ Thymeleaf 템플릿을 활용하여 각 기능에 대한 화면을 작성한다.
 7. 에러메세지 중복 문제 해결
    - `<div th:if="${param.error}">` 에서 error 부분을 `articleError` 등과 같이 바꿔주고
    - `return "redirect:/article/" + articleId + "?articleError=password";` 처럼 URL 을 만들어줄떄도
-   error 의 변경사항을 반영? 
+   error 의 변경사항을 반영?3333333333 
 
 ## 프로젝트 실행
 ### git clone

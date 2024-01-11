@@ -2,14 +2,12 @@ package com.example.AnonymForum.controller;
 
 
 import com.example.AnonymForum.entity.ArticleEntity;
-import com.example.AnonymForum.entity.BoardEntitiy;
+import com.example.AnonymForum.entity.BoardEntity;
 import com.example.AnonymForum.entity.CommentEntity;
 import com.example.AnonymForum.service.ArticleService;
 import com.example.AnonymForum.service.BoardService;
 import com.example.AnonymForum.service.CommentService;
 import java.util.List;
-import java.util.Optional;
-import javax.xml.stream.events.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +37,7 @@ public class ArticleController {
 
         // 뒤로 가기 버튼을 위한 board 객체 가져와 모델에 추가
         Long boardId = articleEntity.getBoard().getId();
-        BoardEntitiy board = boardService.readOneBoard(boardId);
+        BoardEntity board = boardService.readOneBoard(boardId);
         model.addAttribute("board", board);
 
         return "article/read";
